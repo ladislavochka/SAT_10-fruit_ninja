@@ -1,0 +1,67 @@
+#:import Button kivy.uix.button.Button
+
+<GameScreen>:
+    RelativeLayout:
+        # Паралакс-фон із двома шарами зображень
+        ParallaxBackground:
+            id: parallax_bg
+            size_hint: 1, 1
+
+        # Верхня панель зі статистикою
+        MDBoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: "60dp"
+            pos_hint: {"top": 1}
+            padding: ["20dp", "10dp"]
+
+            MDLabel:
+                text: f"Score: {root.score}"
+                font_size: "24sp"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: 1, 0.84, 0.0, 1
+
+            MDLabel:
+                text: f"Lives: {root.lives}"
+                font_size: "24sp"
+                bold: True
+                halign: "right"
+                theme_text_color: "Custom"
+                text_color: 1, 0.3, 0.3, 1
+
+        # Вікно Game Over
+        MDCard:
+            size_hint: None, None
+            size: "280dp", "200dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            elevation: 6
+            radius: [20,]
+            padding: "20dp"
+            spacing: "15dp"
+            orientation: "vertical"
+            opacity: 1 if root.game_over else 0
+            disabled: not root.game_over
+
+            MDLabel:
+                text: "GAME OVER"
+                font_size: "28sp"
+                bold: True
+                halign: "center"
+                theme_text_color: "Error"
+
+            MDLabel:
+                text: f"Final Score: {root.score}"
+                font_size: "18sp"
+                halign: "center"
+                theme_text_color: "Secondary"
+
+            Button:
+                text: "RESTART"
+                size_hint: None, None
+                size: "140dp", "45dp"
+                pos_hint: {"center_x": 0.5}
+                background_color: 0.9, 0.2, 0.2, 1
+                color: 1, 1, 1, 1
+                bold: True
+                on_release: root.restart_game()
